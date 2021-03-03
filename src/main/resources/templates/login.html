@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"  href="style.css">
+
+<body id="particles-js"></body>
+<div class="animated bounceInDown">
+    <div class="container">
+        <span class="error animated tada" id="msg"></span>
+        <form name="form1" class="box" th:action="@{/login}" method="post" th:object = "${appUser}" onsubmit="return checkStuff()">
+            <h4>Login<span>Dashboard</span></h4>
+            <h5>Sign in to your account.</h5>
+            <input type="email" th:field="*{email}" placeholder="Email" autocomplete="off">
+            <i class="typcn typcn-eye" id="eye"></i>
+            <input type="password" th:field="*{password}" placeholder="Password" id="pwd" autocomplete="off">
+
+            <input type="submit" value="Sign in" class="btn1">
+        </form>
+        <a th:href="@{/register}" class="donthave">Don’t have an account? Register</a>
+    </div>
+
+</div>
+    <script src="static/jss.js"></script>
+</html>

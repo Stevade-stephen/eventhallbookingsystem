@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration Portal</title>
+</head>
+    <link rel="stylesheet" type="text/css"  th:href="@{/register.css}"  href="style.css">
+<body>
+    <form th:action="@{/register}" th:object="${appUser}" method="post">
+        <div class="container">
+            <h1>Register</h1>
+            <p>Please fill in this form to create an account.</p>
+
+        <label First Name></label>
+        <label>
+            <input type="text" th:field = "*{firstName}" placeholder="Enter First Name" required>
+        </label>
+        <label Last Name></label>
+        <label>
+            <input type="text" placeholder="Enter Last Name" th:field= "*{lastName}" required>
+        </label>
+
+        <label Email></label>
+            <label>
+                <input type="email" placeholder="Enter Email" th:field="*{email}" required>
+            </label>
+            <label Password></label>
+            <label>
+                <input type="password" placeholder="Enter Password" th:field="*{password}" required>
+            </label>
+
+            <label Role></label>
+        <label>
+        <select th:field="*{appUserRole}" required>
+            <option selected hidden value="">Role</option>
+            <option value="ADMIN">Admin</option>
+            <option value="CUSTOMER">Customer</option>
+        </select>
+        </label>
+        <div class="clearfix">
+
+            <button type="submit" class="btn">Register</button>
+        </div>
+    </div>
+</form>
+
+
+</body>
+</html>
