@@ -2,6 +2,7 @@ package com.stevade.controllers;
 
 import com.stevade.models.AppUser;
 import com.stevade.services.AppUserService;
+import com.stevade.services.impl.AppUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,6 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute ("appUser") AppUser appUser, Model model){
-        System.out.println(appUser.toString());
         appUserService.saveAppUser(appUser);
         return "login";
     }

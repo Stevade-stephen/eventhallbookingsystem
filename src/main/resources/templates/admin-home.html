@@ -1,11 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Employee Management System</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
 </head>
 <body>
-<h1>This is admin home page</h1>
+<div class ="container my-2">
+    <h1>Welcome Admin</h1>
+
+<!--    <a th:href = "@{/showNewEmployeeForm}" class = "btn btn-primary btn-sm mb-3">Add Employee</a>-->
+    <a th:href="@{/event-halls}" class="btn btn-primary">View Event Halls</a>
+    <a th:href="@{/event-halls/add-hall-form}" class="btn btn-primary">Add Event Hall</a>
+    <hr>
+    <h2>List of Customers</h2>
+    <table border="2" class = "table table-stripped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Customer First Name</th>
+            <th>Customer Last Name</th>
+            <th>Customer Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="appUser : ${listOfCustomers}">
+            <td th:text="${appUser.firstName}"></td>
+            <td th:text="${appUser.lastName}"></td>
+            <td th:text="${appUser.email}"></td>
+            <td> <a th:href="@{/showFormForUpdate/{id}(id=${appUser.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/deleteEmployee/{id}(id=${appUser.id})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/view-customer-activity/{id}(id=${appUser.id})}" class="btn btn-success">View Customer Activity</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/logout}" class="btn btn-primary">Log Out</a>
+
+</div >
 
 </body>
 </html>

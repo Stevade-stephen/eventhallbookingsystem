@@ -11,6 +11,5 @@ import java.util.Optional;
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findByEmail(String email);
     Optional<AppUser> findByEmailAndPassword(String email, String password);
-
     List<AppUser> findAppUserByAppUserRole(Enum CUSTOMER);
 }

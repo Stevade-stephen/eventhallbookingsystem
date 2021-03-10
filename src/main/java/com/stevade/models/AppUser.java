@@ -7,16 +7,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode
 @Entity
-public class AppUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class AppUser extends BaseModel {
+
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String email;
     private String password;
     //Because it is an enum, we have to specify the type which is a string

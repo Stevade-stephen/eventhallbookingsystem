@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>View Event Halls</title>
 </head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" th:href="@{/eventhall.css}"  href="style.css">
 <body>
 <div class="wrapper">
@@ -17,22 +21,22 @@
             </div>
             <div class="menu__desktop">
                 <ul class="desktop__menu">
-                    <li class="promo">Go home</li>
+                    <a th:href="@{/logout}" class="btn btn-danger">Log Out</a>
                 </ul>
             </div>
         </div>
         <h3>View Halls for Booking</h3>
     </div>
-    <div class="cards">
-        <div class="card">
+    <div class="cards" >
+        <div class="card" th:each="hall : ${hallList}">
             <div class="card__img">
 
-                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,w_349/v1614772649/VenueBookingSystem/lekki-event-center-decorated2_skqbjd.jpg">
-
+<!--                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,w_349/v1614772649/VenueBookingSystem/lekki-event-center-decorated2_skqbjd.jpg">-->
+                        <img th:src="${hall.hallUrl}">
             </div>
             <div class="card__details">
-                <h3 for="cozyroom">Deluxe Hall</h3>
-                <div class="address">Abuja</div>
+                <h3 for="cozyroom" th:text="${hall.name}"></h3>
+                <div class="address" th:text="${hall.location}"></div>
                 <div class="price">
                     <div class="star">
                         <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
@@ -41,135 +45,137 @@
                         <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
                     </div>
                     <div class="price__l">
-                        <span class="price__label">500 /</span>
-                        <span class="measure__label">Day</span>
+                        <span class="price__label" th:text="${hall.price}"></span>
+                    </div>
+                    <div class="day">
+                        <span class="date__label" th:text="${hall.date}"></span>
                     </div>
                 </div>
-                <button>Book Hall</button>
+                <a th:href="@{event-halls/view-hall/{id}(id=${hall.id})}" class="btn btn-primary">Book Hall</a>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card__img">
-                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,w_320/v1614773390/VenueBookingSystem/fe-34-1080x720-1_f6zarm.jpg">
-            </div>
-            <div class="card__details">
-                <h3 for="tomato">The Capitol</h3>
-                <div class="address">Lagos</div>
-                <div class="price">
-                    <div class="star">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                    </div>
-                    <div class="price__l">
-                        <span class="price__label">$1000 /</span>
-                        <span class="measure__label">Day</span>
-                    </div>
-                </div>
-                <button>Book Hall</button>
-            </div>
+<!--        <div class="card">-->
+<!--            <div class="card__img">-->
+<!--                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,w_320/v1614773390/VenueBookingSystem/fe-34-1080x720-1_f6zarm.jpg">-->
+<!--            </div>-->
+<!--            <div class="card__details">-->
+<!--                <h3 for="tomato">The Capitol</h3>-->
+<!--                <div class="address">Lagos</div>-->
+<!--                <div class="price">-->
+<!--                    <div class="star">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="price__l">-->
+<!--                        <span class="price__label">$1000 /</span>-->
+<!--                        <span class="measure__label">Day</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <a th:href="@{event-halls/view-hall/{id}}" class="btn btn-primary">Book Hall</a>-->
+<!--            </div>-->
 
-        </div>
+<!--        </div>-->
 
-        <div class="card">
-            <div class="card__img">
-                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,h_200,w_320/v1614772692/VenueBookingSystem/022-top-events-centre-in-nigeria_cxuljd.jpg">
-            </div>
-            <div class="card__details">
-                <h3 for="cozyroom">Prestige Hall</h3>
-                <div class="address">Enugu</div>
+<!--        <div class="card">-->
+<!--            <div class="card__img">-->
+<!--                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,h_200,w_320/v1614772692/VenueBookingSystem/022-top-events-centre-in-nigeria_cxuljd.jpg">-->
+<!--            </div>-->
+<!--            <div class="card__details">-->
+<!--                <h3 for="cozyroom">Prestige Hall</h3>-->
+<!--                <div class="address">Enugu</div>-->
 
-                <div class="price">
-                    <div class="star">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                    </div>
-                    <div class="price__l">
-                        <span class="price__label">$500 /</span>
-                        <span class="measure__label">Day</span>
-                    </div>
-                </div>
-                <button>Book Hall</button>
-            </div>
+<!--                <div class="price">-->
+<!--                    <div class="star">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="price__l">-->
+<!--                        <span class="price__label">$500 /</span>-->
+<!--                        <span class="measure__label">Day</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <a th:href="@{event-halls/view-hall/{id}}" class="btn btn-primary">Book Hall</a>-->
+<!--            </div>-->
 
-        </div>
+<!--        </div>-->
 
-        <div class="card">
-            <div class="card__img">
-                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,h_200,w_320/v1614773280/VenueBookingSystem/events-2609526_1280-1200x600_xsxkeu.webp">
-            </div>
-            <div class="card__details">
-                <h3 for="cozyroom">Exquisite Royal Hall</h3>
-                <div th:field="*{location}" th:object="${hall}" class="address">Lagos</div>
+<!--        <div class="card">-->
+<!--            <div class="card__img">-->
+<!--                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,h_200,w_320/v1614773280/VenueBookingSystem/events-2609526_1280-1200x600_xsxkeu.webp">-->
+<!--            </div>-->
+<!--            <div class="card__details">-->
+<!--                <h3 for="cozyroom">Exquisite Royal Hall</h3>-->
+<!--                <div  class="location">Lagos</div>-->
 
-                <div class="price">
-                    <div class="star">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                    </div>
-                    <div class="price__l">
-                        <span class="price__label"> $200/</span>
-                        <span class="measure__label">Day</span>
-                    </div>
-                </div>
-                <button>Book Hall</button>
-            </div>
-        </div>
+<!--                <div class="price">-->
+<!--                    <div class="star">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="price__l">-->
+<!--                        <span class="price__label"> $200/</span>-->
+<!--                        <span class="measure__label">Day</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <a th:href="@{event-halls/view-hall/{id}}" class="btn btn-primary">Book Hall</a>-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <div class="card">
-            <div class="card__img">
-                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,w_320/v1614773234/VenueBookingSystem/833_Wedding-Venue_Paradise-one2photography.com34-1024x682-1024x682_z3jdoc.jpg">
-            </div>
-            <div class="card__details">
-                <h3 for="cozyroom">Tropicana Hall</h3>
-                <div class="address">PortHacourt</div>
+<!--        <div class="card">-->
+<!--            <div class="card__img">-->
+<!--                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,w_320/v1614773234/VenueBookingSystem/833_Wedding-Venue_Paradise-one2photography.com34-1024x682-1024x682_z3jdoc.jpg">-->
+<!--            </div>-->
+<!--            <div class="card__details">-->
+<!--                <h3 for="cozyroom">Tropicana Hall</h3>-->
+<!--                <div class="address">PortHarcourt</div>-->
 
-                <div class="price">
-                    <div class="star">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                    </div>
-                    <div class="price__l">
-                        <span class="price__label">$700 /</span>
-                        <span class="measure__label">Day</span>
-                    </div>
-                </div>
-                <button>Book Hall</button>
-            </div>
+<!--                <div class="price">-->
+<!--                    <div class="star">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="price__l">-->
+<!--                        <span class="price__label">$700 /</span>-->
+<!--                        <span class="measure__label">Day</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <a th:href="@{event-halls/view-hall/{id}}" class="btn btn-primary">Book Hall</a>-->
+<!--            </div>-->
 
-        </div>
+<!--        </div>-->
 
-        <div class="card">
-            <div class="card__img">
-                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,w_320/v1614773079/VenueBookingSystem/IMG_9000-1024x683_f2axbn.jpg">
-            </div>
-            <div class="card__details">
-                <h3 for="cozyroom">Les't Carrot Hall</h3>
-                <div class="address">Abuja</div>
+<!--        <div class="card">-->
+<!--            <div class="card__img">-->
+<!--                    <img src="https://res.cloudinary.com/stevade/image/upload/c_scale,w_320/v1614773079/VenueBookingSystem/IMG_9000-1024x683_f2axbn.jpg">-->
+<!--            </div>-->
+<!--            <div class="card__details">-->
+<!--                <h3 for="cozyroom">Les't Carrot Hall</h3>-->
+<!--                <div class="address">Abuja</div>-->
 
-                <div class="price">
-                    <div class="star">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">
-                    </div>
-                    <div class="price__l">
-                        <span class="price__label">$1200 /</span>
-                        <span class="measure__label">Day</span>
-                    </div>
-                </div>
-                <button>Book Hall</button>
-            </div>
-        </div>
+<!--                <div class="price">-->
+<!--                    <div class="star">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                        <img src="https://image.flaticon.com/icons/svg/291/291205.svg" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="price__l">-->
+<!--                        <span class="price__label">$1200 /</span>-->
+<!--                        <span class="measure__label">Day</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <a th:href="@{event-halls/view-hall/{id}}" class="btn btn-primary">Book Hall</a>-->
+<!--            </div>-->
+<!--        </div>-->
 
 
     </div>

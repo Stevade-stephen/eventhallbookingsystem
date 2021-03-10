@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Event hall</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+<div style="margin-left: 450px;margin-top: 50px; width: 500px; height: 650px" th:object="${hall}">
+    <div style="border: 1px solid brown; height: 400px">
+        <img th:src="${hall.hallUrl}" style="width: 500px; height: 400px">
+    </div>
+    <div style="height: 150px">
+        <div th:text="${hall.name}" style="text-align: center; font-weight: bold; font-size: 40px"></div>
+        <div th:text="${hall.location}"style="text-align: center; font-weight: bold; font-size: 35px"></div>
+        <div th:text="${hall.price}" style="text-align: center; font-weight: bold; font-size: 25px"></div>
+    </div>
+
+    <div style="height: 50px">
+       <form th:action="@{/event-halls/book-event-hall/{id}(id=${hall.id})}" th:object="${test}" method="post">
+           <div style="margin-top: 10px; margin-left: 130px">
+               <b>Day of booking:</b><label>
+               <input type="date"  th:field="*{date}" required placeholder="select day of booking">
+           </label>
+           </div>
+           <div>
+               <button type="submit" class="btn btn-primary" style="margin-left: 200px;margin-top: 10px"> Book now</button>
+           </div>
+       </form>
+    </div>
+</div>
+
+
+</body>
+</html>

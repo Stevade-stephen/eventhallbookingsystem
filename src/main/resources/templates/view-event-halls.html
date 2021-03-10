@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Event Halls</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+</head>
+<body>
+<div class ="container my-2">
+    <h1>List of Event Halls</h1>
+    <a th:href="@{/admin-dashboard}" class="btn btn-success">Go home</a>
+
+    <!--    <a th:href = "@{/showNewEmployeeForm}" class = "btn btn-primary btn-sm mb-3">Add Employee</a>-->
+<!--    <a th:href="@{/event-halls}" class="btn btn-primary">View Event Halls</a>-->
+<!--    <a th:href="@{/add-hall}" class="btn btn-primary">Add Event Hall</a>-->
+    <hr>
+<!--    <h2>List of Customers</h2>-->
+    <table border="2" class = "table table-stripped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Event Hall Name</th>
+            <th>Event Hall Location</th>
+            <th>Event Hall Availability</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="eventHalls : ${eventHalls}">
+            <td th:text="${eventHalls.name}"></td>
+            <td th:text="${eventHalls.location}"></td>
+            <td th:text="${eventHalls.availability}"></td>
+            <td> <a th:href="@{/showFormForUpdate/{id}(id=${eventHalls.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/event-halls/delete-event-hall/{id}(id=${eventHalls.id})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/view-customer-activity/{id}(id=${eventHalls.id})}" class="btn btn-success">View Customer Activity</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+<!--    <a th:href="@{/logout}" class="btn btn-primary">Log Out</a>-->
+
+</div >
+
+</body>
+</html>

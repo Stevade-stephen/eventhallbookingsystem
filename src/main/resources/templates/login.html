@@ -13,7 +13,7 @@
         <form name="form1" class="box" th:action="@{/login}" method="post" th:object = "${appUser}" onsubmit="return checkStuff()">
             <h4>Login<span>Dashboard</span></h4>
             <h5>Sign in to your account.</h5>
-            <input type="email" th:field="*{email}" placeholder="Email" autocomplete="off">
+            <input type="email" th:field="*{email}" placeholder="Email" autocomplete="on">
             <i class="typcn typcn-eye" id="eye"></i>
             <input type="password" th:field="*{password}" placeholder="Password" id="pwd" autocomplete="off">
 

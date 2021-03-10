@@ -6,9 +6,8 @@ import com.stevade.repositories.AppUserRepository;
 import com.stevade.services.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class AppUserServiceImpl implements AppUserService {
@@ -56,5 +55,7 @@ public class AppUserServiceImpl implements AppUserService {
     public List<AppUser> getAppUserByAppUserRole(AppUser appUser) {
         return appUserRepository.findAppUserByAppUserRole(AppUserRole.CUSTOMER);
     }
+
+
 
 }

@@ -43,11 +43,11 @@ public class LoginController {
         } else {
             if (newUser.getAppUserRole().equals(AppUserRole.ADMIN)) {
                 model.addAttribute("adminAppUser", appUser);
-                session.setAttribute("appUser", newUser);
+                session.setAttribute("adminAppUser", newUser);
                 return "redirect:/admin-dashboard";
             } else {
                 model.addAttribute("appUser", new AppUser());
-                session.setAttribute("appUser", newUser);
+                session.setAttribute("customerAppUser", newUser);
                 return "redirect:/customer-dashboard";
 
             }

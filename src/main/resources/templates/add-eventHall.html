@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Event Hall</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<h2 style="text-align: center">Event Hall Details</h2>
+<form class="w-75" th:action="@{/event-halls/add-hall}"  th:object="${eventHall}" method="POST">
+
+    <div>
+        <label>Name:</label>
+        <input type="text" th:field = "*{name}" placeholder="Name of event hall" class = "form-control mb-4 col-4">
+<!--        <span th:field="*{name}" class = "form-control mb-2 col-2"></span>-->
+    </div>
+    <div>
+        <label>Location:</label>
+        <input type="text" th:field="*{location}" placeholder="location of hall" class = "form-control mb-4 col-4">
+<!--        <span th:field="*{location}" class = "form-control mb-2 col-2"></span>-->
+    </div>
+    <div>
+        <label>Hall url:</label>
+        <input type="text" th:field="*{hallUrl}" placeholder="hall url" class = "form-control mb-4 col-4">
+<!--        <span th:field="*{hallUrl}" class = "form-control mb-2 col-2"></span>-->
+    </div>
+    <div>
+        <label>Hall Price:</label>
+        <input type="text" th:field="*{price}" placeholder="hall url" class = "form-control mb-4 col-4">
+<!--        <span th:field="*{hallUrl}" class = "form-control mb-2 col-2"></span>-->
+    </div>
+    <div>
+        <label>Availability:</label>
+        <select th:field="*{availability}" class = "form-control mb-2 col-2" required >
+            <option selected hidden value="">availability</option>
+            <option value= "available" >Available</option>
+            <option value="unavailable">Unavailable</option>
+        </select>
+<!--        <span th:field="*{isAvailable()}" class = "form-control mb-2 col-2"></span>-->
+    </div>
+
+    <button type="submit" class = "btn btn-info col-2">Add Hall</button>
+</form>
+</body>
+</html>
