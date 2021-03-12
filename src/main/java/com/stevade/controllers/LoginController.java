@@ -2,8 +2,16 @@ package com.stevade.controllers;
 
 import com.stevade.models.AppUser;
 import com.stevade.models.AppUserRole;
+import com.stevade.models.Role;
 import com.stevade.services.AppUserService;
+import com.stevade.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +24,16 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     private final AppUserService appUserService;
+    private AuthenticationManager authenticationManager;
+    private final RoleService roleService;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public LoginController(AppUserService appUserService) {
+    public LoginController(AppUserService appUserService, AuthenticationManager authenticationManager, RoleService roleService, @Qualifier("myUserDetailsService") UserDetailsService userDetailsService) {
         this.appUserService = appUserService;
+        this.authenticationManager = authenticationManager;
+        this.roleService = roleService;
+        this.userDetailsService = userDetailsService;
     }
 
     @GetMapping("/login")
@@ -36,12 +50,28 @@ public class LoginController {
 
     @PostMapping("/login")
     public String processLogin(Model model, HttpSession session, AppUser appUser, RedirectAttributes redirectAttributes) {
+        UserDetails userDetails = null;
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUser.getEmail(), appUser.getPassword()));
+             userDetails = userDetailsService.loadUserByUsername(appUser.getEmail());
+        } catch (BadCredentialsException e){
+            e.printStackTrace();
+        }
+
+
         AppUser newUser = appUserService.getAppUserByEmailAndPassword(appUser.getEmail(), appUser.getPassword());
+
+
         if (newUser == null) {
             redirectAttributes.addFlashAttribute("invalid", "User does not exist. Check login details or register");
             return "redirect:/login";
         } else {
-            if (newUser.getAppUserRole().equals(AppUserRole.ADMIN)) {
+
+            Role role = new Role();
+
+//            if (newUser.getRoles().equals(role.getAppUserRole().toString().equals(AppUserRole.ADMIN))) {
+            assert userDetails != null;
+            if(userDetails.getAuthorities().equals(AppUserRole.ADMIN)){
                 model.addAttribute("adminAppUser", appUser);
                 session.setAttribute("adminAppUser", newUser);
                 return "redirect:/admin-dashboard";

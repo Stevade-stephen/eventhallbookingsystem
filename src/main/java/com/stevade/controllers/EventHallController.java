@@ -51,7 +51,7 @@ public class EventHallController {
     @PostMapping("/add-hall")
     public String addEventHall(@ModelAttribute("eventHall") EventHall eventHall, HttpSession session){
         AppUser appUser = (AppUser) session.getAttribute("adminAppUser");
-        if(appUser.getAppUserRole().equals(AppUserRole.ADMIN)){
+        if(appUser.getRoles().equals(AppUserRole.ADMIN)){
             eventHallService.addEventHall(eventHall);
             return "redirect:/event-halls";
         }

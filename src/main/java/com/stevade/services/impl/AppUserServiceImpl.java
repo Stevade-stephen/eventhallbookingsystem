@@ -53,7 +53,7 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public List<AppUser> getAppUserByAppUserRole(AppUser appUser) {
-        return appUserRepository.findAppUserByAppUserRole(AppUserRole.CUSTOMER);
+        return appUserRepository.findByRoles(AppUserRole.CUSTOMER);
     }
 
 
