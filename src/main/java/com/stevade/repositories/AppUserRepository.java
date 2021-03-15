@@ -1,6 +1,7 @@
 package com.stevade.repositories;
 
 import com.stevade.models.AppUser;
+import com.stevade.models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,8 +11,8 @@ import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
-public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+public interface AppUserRepository extends JpaRepository<AppUser, Long>{
     Optional<AppUser> findByEmail(String email);
     Optional<AppUser> findByEmailAndPassword(String email, String password);
-    List<AppUser> findByRoles(Enum CUSTOMER);
+    List<AppUser> findByRoles(Role role);
 }

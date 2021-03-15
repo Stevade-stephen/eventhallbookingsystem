@@ -23,7 +23,7 @@ public class AppUser extends BaseModel {
     //Because it is an enum, we have to specify the type which is a string
 //    @Enumerated(EnumType.STRING)
 //    private AppUserRole appUserRole;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 

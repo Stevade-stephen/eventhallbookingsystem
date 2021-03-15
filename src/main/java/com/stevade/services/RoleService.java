@@ -5,5 +5,5 @@ import com.stevade.models.AppUserRole;
 import com.stevade.models.Role;
 
 public interface RoleService {
-    Role getAppUserRole (AppUser appUser);
+    Role getAppUserRole(AppUserRole userRole);
 }

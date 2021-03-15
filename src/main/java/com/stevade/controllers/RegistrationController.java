@@ -13,16 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Controller
 public class RegistrationController {
 
     private final AppUserService appUserService;
-    private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public RegistrationController(AppUserService appUserService, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
@@ -41,7 +41,7 @@ public class RegistrationController {
     public String registerUser(@ModelAttribute ("appUser") UserDTO userDTO, Model model){
         AppUser appUser = new AppUser();
         Set<Role> roles = new HashSet<>();
-        if (userDTO.getRoles().equalsIgnoreCase("admin") || userDTO.getRoles().equalsIgnoreCase("customer"))
+        if (userDTO.getRoles().equalsIgnoreCase("admin")){
             appUser.setFirstName(userDTO.getFirstName());
             appUser.setLastName(userDTO.getLastName());
             appUser.setEmail(userDTO.getEmail());
@@ -50,6 +50,19 @@ public class RegistrationController {
             appUser.setRoles(roles);
             appUserService.saveAppUser(appUser);
             return "login";
+
+        } else {
+
+            appUser.setFirstName(userDTO.getFirstName());
+            appUser.setLastName(userDTO.getLastName());
+            appUser.setEmail(userDTO.getEmail());
+            appUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+            roles.add(roleRepository.findByAppUserRole(AppUserRole.CUSTOMER));
+            appUser.setRoles(roles);
+            appUserService.saveAppUser(appUser);
+            return "login";
+
+        }
 
     }
 

@@ -1,12 +1,13 @@
 package com.stevade.services.impl;
 
 import com.stevade.models.AppUser;
-import com.stevade.models.AppUserRole;
+import com.stevade.models.Role;
 import com.stevade.repositories.AppUserRepository;
 import com.stevade.services.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -22,13 +23,11 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     public AppUser getAppUserByEmail(String email){
-        AppUser appUser = new AppUser();
-        boolean userExists = appUserRepository.findByEmail(email).isPresent();
-        if(userExists){
-            throw new IllegalStateException("email already taken");
+        Optional<AppUser> appUser = appUserRepository.findByEmail(email);
+        if(!appUser.isPresent()){
+            throw new IllegalStateException("User does not exist");
         }
-        appUser.setEmail(email);
-        return appUser;
+        return appUser.get();
     }
 
     @Override
@@ -52,8 +51,8 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public List<AppUser> getAppUserByAppUserRole(AppUser appUser) {
-        return appUserRepository.findByRoles(AppUserRole.CUSTOMER);
+    public List<AppUser> getUsersByAppUserRole(Role role) {
+        return appUserRepository.findByRoles(role);
     }
 
 
